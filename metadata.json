@@ -1,0 +1,6 @@
+{
+  "name": "L'Aura • Luxury Artisan Café & Roasters",
+  "description": "Boutique artisan café and roastery featuring single-origin micro-lot brews, dawn pastries, dine-in table QR ordering, and table-side hospitality.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

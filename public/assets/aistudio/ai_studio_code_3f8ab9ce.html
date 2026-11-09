@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Aura • Luxury Artisan Café & Roasters</title>
+
+  <!-- Google Fonts: Playfair Display & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            espresso: '#2B1B14',
+            'espresso-dark': '#1A100C',
+            'espresso-card': '#36231A',
+            cream: '#F7F1E8',
+            'cream-light': '#FAF6F0',
+            caramel: '#C8A15A',
+            'caramel-light': '#DFC48D',
+            'caramel-dark': '#A37F38',
+            sage: '#8A9A7B',
+            'sage-light': '#A7B59A',
+            'sage-dark': '#69775B'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'warm-glow': '0 20px 45px -15px rgba(200, 161, 90, 0.25)',
+            'card-soft': '0 10px 30px -8px rgba(43, 27, 20, 0.08)',
+            'card-hover': '0 25px 40px -12px rgba(43, 27, 20, 0.18)',
+            'dark-card': '0 15px 35px -10px rgba(0, 0, 0, 0.65)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* CSS Variables & Global Tokens */
+    :root {
+      --espresso: #2B1B14;
+      --cream: #F7F1E8;
+      --caramel: #C8A15A;
+      --sage: #8A9A7B;
+    }
+
+    /* Subtle Grain Texture Overlay */
+    .grain-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    /* Glassmorphism Styles */
+    .glass-light {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+    }
+    .dark .glass-dark {
+      background: rgba(38, 23, 17, 0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(200, 161, 90, 0.18);
+    }
+
+    /* Steam & Floating Keyframes */
+    @keyframes steamRise {
+      0% { opacity: 0; transform: translateY(0) scaleX(1); }
+      40% { opacity: 0.7; transform: translateY(-16px) scaleX(1.15); }
+      80% { opacity: 0.3; transform: translateY(-32px) scaleX(0.85); }
+      100% { opacity: 0; transform: translateY(-46px) scaleX(1.3); }
+    }
+    .steam-1 { animation: steamRise 2.8s infinite ease-out; }
+    .steam-2 { animation: steamRise 3.2s infinite ease-out 0.6s; }
+    .steam-3 { animation: steamRise 2.5s infinite ease-out 1.2s; }
+
+    @keyframes floatParticle {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(12deg); }
+    }
+    .animate-float { animation: floatParticle 6s ease-in-out infinite; }
+    .animate-float-delayed { animation: floatParticle 7s ease-in-out infinite 2.5s; }
+
+    /* Animated Checkmark */
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+    .draw-path {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: drawCheck 0.9s cubic-bezier(0.65, 0, 0.45, 1) forwards 0.2s;
+    }
+
+    /* Card Shimmer Skeleton */
+    .skeleton-shimmer {
+      background: linear-gradient(90deg, rgba(200, 161, 90, 0.08) 25%, rgba(200, 161, 90, 0.2) 50%, rgba(200, 161, 90, 0.08) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Spring Button Press & Ripple */
+    .press-spring {
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    }
+    .press-spring:active {
+      transform: scale(0.94);
+    }
+
+    /* Fly to cart item clone */
+    .flying-proxy {
+      position: fixed;
+      z-index: 9999;
+      pointer-events: none;
+      border-radius: 9999px;
+      object-fit: cover;
+      box-shadow: 0 10px 25px rgba(200, 161, 90, 0.5);
+      transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Hide scrollbar for category tabs */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+
+<body class="bg-cream-light dark:bg-espresso-dark text-espresso dark:text-cream font-sans antialiased selection:bg-caramel selection:text-white transition-colors duration-500 overflow-x-hidden relative min-h-screen">
+  <!-- Subtle Grain Canvas -->
+  <div class="fixed inset-0 pointer-events-none z-50 grain-overlay"></div>
+
+  <!-- ================= SPLASH SCREEN ================= -->
+  <div id="splashScreen" class="fixed inset-0 z-[100] bg-espresso flex flex-col items-center justify-center transition-opacity duration-700 ease-out">
+    <div class="relative w-32 h-32 flex items-center justify-center mb-6">
+      <!-- Rising Steam SVG paths -->
+      <svg class="absolute -top-10 w-16 h-16 pointer-events-none overflow-visible" viewBox="0 0 50 60">
+        <path class="steam-1 stroke-caramel fill-none stroke-[2.5] stroke-linecap-round" d="M12,45 Q6,30 18,15 T10,2" />
+        <path class="steam-2 stroke-caramel-light fill-none stroke-[2.5] stroke-linecap-round" d="M25,48 Q32,32 20,18 T28,4" />
+        <path class="steam-3 stroke-caramel fill-none stroke-[2.5] stroke-linecap-round" d="M38,45 Q32,28 42,16 T36,2" />
+      </svg>
+      <!-- Coffee Cup Vector -->
+      <svg class="w-24 h-24 text-caramel drop-shadow-[0_10px_20px_rgba(200,161,90,0.3)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
+        <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
+        <line x1="6" y1="2" x2="6" y2="4"></line>
+        <line x1="10" y1="2" x2="10" y2="4"></line>
+        <line x1="14" y1="2" x2="14" y2="4"></line>
+      </svg>
+    </div>
+    <h1 class="font-serif text-3xl md:text-4xl tracking-widest text-cream uppercase font-medium">L'Aura</h1>
+    <div class="flex items-center gap-2 mt-2">
+      <span class="h-[1px] w-6 bg-caramel"></span>
+      <p class="text-xs tracking-[0.3em] uppercase text-caramel">Artisan Roastery</p>
+      <span class="h-[1px] w-6 bg-caramel"></span>
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION CONTAINER ================= -->
+  <div id="toastContainer" class="fixed top-20 right-6 z-[80] flex flex-col gap-3 pointer-events-none"></div>
+
+  <!-- ================= FLYING CLONE CONTAINER ================= -->
+  <div id="flyContainer" class="pointer-events-none fixed inset-0 z-[99]"></div>
+
+  <!-- ================= STICKY BLURRED NAVBAR ================= -->
+  <header class="sticky top-0 z-40 transition-all duration-300 backdrop-blur-xl bg-cream-light/80 dark:bg-espresso-dark/85 border-b border-caramel/15 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <!-- Café Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-caramel rounded-xl p-1">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-caramel to-caramel-dark flex items-center justify-center text-espresso shadow-md shadow-caramel/25 group-hover:rotate-6 transition-transform duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+            <line x1="6" y1="1" x2="6" y2="4"></line>
+            <line x1="10" y1="1" x2="10" y2="4"></line>
+            <line x1="14" y1="1" x2="14" y2="4"></line>
+          </svg>
+        </div>
+        <div>
+          <span class="font-serif text-2xl font-semibold tracking-wide block leading-none text-espresso dark:text-cream">L'Aura</span>
+          <span class="text-[10px] tracking-[0.25em] text-caramel uppercase font-medium">Boutique Café</span>
+        </div>
+      </a>
+
+      <!-- Quick Search Bar (Collapsible/Expanding) -->
+      <div class="hidden md:flex items-center flex-1 max-w-md mx-6">
+        <div class="relative w-full group">
+          <input
+            id="navSearchInput"
+            type="text"
+            placeholder="Search our roasts, brews & pastries..."
+            class="w-full pl-11 pr-4 py-2.5 rounded-full text-sm bg-cream/70 dark:bg-espresso/80 border border-caramel/30 focus:border-caramel focus:ring-2 focus:ring-caramel/30 focus:outline-none transition-all duration-300 text-espresso dark:text-cream placeholder-espresso/50 dark:placeholder-cream/40"
+          />
+          <svg class="w-4 h-4 text-caramel absolute left-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" stroke-width="2" stroke-linecap="round"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right Actions: Admin View, Theme Toggle, Cart -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <!-- Admin QR standees trigger -->
+        <button
+          onclick="toggleAdminView()"
+          title="Printable Table QR Standees"
+          class="p-2.5 rounded-full hover:bg-caramel/15 text-caramel transition-colors focus:ring-2 focus:ring-caramel focus:outline-none flex items-center gap-1.5 text-xs font-medium"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7" stroke-width="2" rx="1"></rect>
+            <rect x="14" y="3" width="7" height="7" stroke-width="2" rx="1"></rect>
+            <rect x="3" y="14" width="7" height="7" stroke-width="2" rx="1"></rect>
+            <path stroke-width="2" stroke-linecap="round" d="M14 14h3v3h-3zM17 17h4v4h-4zM14 20h3"></path>
+          </svg>
+          <span class="hidden lg:inline">Table QRs</span>
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button
+          id="themeToggleBtn"
+          onclick="toggleTheme()"
+          aria-label="Toggle Theme Mode"
+          class="p-2.5 rounded-full hover:bg-caramel/15 text-caramel transition-colors focus:ring-2 focus:ring-caramel focus:outline-none"
+        >
+          <!-- Sun Icon -->
+          <svg id="sunIcon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" stroke-width="2"></circle>
+            <line x1="12" y1="1" x2="12" y2="3" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="12" y1="21" x2="12" y2="23" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="1" y1="12" x2="3" y2="12" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="21" y1="12" x2="23" y2="12" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+          <!-- Moon Icon -->
+          <svg id="moonIcon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+
+        <!-- Cart Trigger Button -->
+        <button
+          id="cartTriggerBtn"
+          onclick="openCartDrawer()"
+          aria-label="View Cart"
+          class="relative p-2.5 rounded-full bg-caramel/15 hover:bg-caramel/25 text-caramel transition-all focus:ring-2 focus:ring-caramel focus:outline-none press-spring flex items-center justify-center"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            <line x1="3" y1="6" x2="21" y2="6" stroke-width="1.8"></line>
+            <path d="M16 10a4 4 0 0 1-8 0" stroke-width="1.8" stroke-linecap="round"></path>
+          </svg>
+          <!-- Live item counter badge -->
+          <span
+            id="cartBadge"
+            class="absolute -top-1.5 -right-1.5 bg-caramel text-espresso dark:text-espresso-dark font-bold text-xs rounded-full w-5 h-5 flex items-center justify-center scale-0 transition-transform duration-300 shadow-md font-sans"
+          >
+            0
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative min-h-[82vh] flex items-center overflow-hidden py-12 lg:py-20">
+    <!-- Floating Background Beans / Ambient Particles -->
+    <div class="absolute inset-0 pointer-events-none select-none">
+      <div class="absolute top-1/4 left-8 text-caramel/20 animate-float">
+        <svg class="w-12 h-12" viewBox="0 0 24 24" fill="currentColor">
+          <ellipse cx="12" cy="12" rx="9" ry="6" transform="rotate(-35 12 12)" />
+        </svg>
+      </div>
+      <div class="absolute bottom-1/3 right-12 text-caramel/15 animate-float-delayed">
+        <svg class="w-16 h-16" viewBox="0 0 24 24" fill="currentColor">
+          <ellipse cx="12" cy="12" rx="9" ry="6" transform="rotate(45 12 12)" />
+        </svg>
+      </div>
+      <div class="absolute top-2/3 left-1/3 text-sage/20 animate-float">
+        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="5" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Background Gradient Glows -->
+    <div class="absolute -top-32 right-1/4 w-96 h-96 bg-gradient-to-tr from-caramel/25 to-sage/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 -left-20 w-80 h-80 bg-gradient-to-br from-espresso/15 dark:from-caramel/10 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <!-- Hero Text (Line-by-line Reveal) -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-caramel/15 border border-caramel/30 text-caramel text-xs tracking-widest uppercase font-semibold">
+            <span class="w-2 h-2 rounded-full bg-caramel animate-ping"></span>
+            Fresh Micro-Lot Harvests
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-espresso dark:text-cream leading-[1.15]">
+            <span class="block transform transition-all duration-700 hover:translate-x-1">Where Slow Roasts</span>
+            <span class="block italic text-caramel font-normal transform transition-all duration-700 delay-100 hover:translate-x-1">Meet Warm Luxury.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-espresso/80 dark:text-cream/80 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+            Curated single-origin brews, delicate viennoiserie baked at dawn, and table-side hospitality crafted for conversation. Scan your table QR, curate your feast, and unwind.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a
+              href="#menuSection"
+              class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-caramel hover:bg-caramel-dark text-espresso font-semibold text-sm tracking-wide shadow-warm-glow press-spring flex items-center justify-center gap-2 transition-colors"
+            >
+              <span>Explore The Menu</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <button
+              onclick="showTableGreetingModal(true)"
+              class="w-full sm:w-auto px-7 py-3.5 rounded-full border border-caramel/40 text-caramel hover:bg-caramel/10 text-sm font-medium press-spring flex items-center justify-center gap-2 transition-colors"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span>Simulate Table 7 QR</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero Glassmorphism Showcase Card with 3D Parallax Tilt -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="relative w-full max-w-md">
+            <!-- Glow Backing -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-caramel/40 to-sage/30 rounded-3xl blur-2xl transform rotate-3 scale-95 opacity-70"></div>
+            
+            <div class="relative glass-light dark:glass-dark rounded-3xl p-4 shadow-card-hover border border-white/40 dark:border-caramel/25 overflow-hidden">
+              <div class="relative h-80 rounded-2xl overflow-hidden bg-espresso/5">
+                <img
+                  src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
+                  alt="L'Aura Signature Velvet Brew"
+                  class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out"
+                  loading="eager"
+                />
+                <span class="absolute top-3 right-3 px-3 py-1 bg-espresso/80 text-caramel text-xs tracking-wider font-semibold rounded-full backdrop-blur-md border border-caramel/30 uppercase">
+                  Chef's Roast
+                </span>
+              </div>
+              <div class="p-4 flex items-center justify-between">
+                <div>
+                  <h3 class="font-serif text-lg font-semibold text-espresso dark:text-cream">Saffron Honey Cortado</h3>
+                  <p class="text-xs text-espresso/60 dark:text-cream/60">Double ristretto, wildflower saffron honey & velvety microfoam</p>
+                </div>
+                <span class="font-serif font-bold text-xl text-caramel">₹310</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MENU SECTION ================= -->
+  <section id="menuSection" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+    <!-- Header & Live Filter Bar -->
+    <div class="space-y-8 mb-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-[0.25em] text-caramel font-semibold block mb-1">Our Offerings</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espresso dark:text-cream">The Culinary Collection</h2>
+        </div>
+        <p id="resultCountBadge" class="text-xs sm:text-sm text-espresso/60 dark:text-cream/60 font-medium">
+          Showing 12 curated delicacies
+        </p>
+      </div>
+
+      <!-- Category Filter Pills + Secondary Controls Bar -->
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        <!-- Horizontally Scrolling Category Pills with Sliding Indicator -->
+        <div class="relative overflow-x-auto no-scrollbar py-1">
+          <div id="categoryContainer" class="flex items-center gap-2 relative bg-espresso/5 dark:bg-espresso/40 p-1.5 rounded-full border border-caramel/20 w-max">
+            <!-- Dynamic Category Buttons injected via JS -->
+          </div>
+        </div>
+
+        <!-- Filters (Veg Only & Sorting) -->
+        <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
+          <!-- Veg Only Toggle -->
+          <label class="flex items-center gap-2.5 cursor-pointer text-xs font-semibold uppercase tracking-wider select-none bg-espresso/5 dark:bg-espresso/40 px-3.5 py-2 rounded-full border border-caramel/20 hover:border-caramel/40 transition-colors">
+            <input type="checkbox" id="vegOnlyToggle" onchange="applyFilters()" class="sr-only peer" />
+            <span class="w-3.5 h-3.5 rounded-full border-2 border-sage flex items-center justify-center p-0.5">
+              <span class="w-2 h-2 rounded-full bg-sage scale-0 peer-checked:scale-100 transition-transform"></span>
+            </span>
+            <span class="text-espresso/80 dark:text-cream/80 peer-checked:text-sage font-medium">Pure Veg</span>
+          </label>
+
+          <!-- Price / Popularity Sort Dropdown -->
+          <div class="relative">
+            <select
+              id="sortSelect"
+              onchange="applyFilters()"
+              aria-label="Sort items"
+              class="appearance-none bg-espresso/5 dark:bg-espresso/40 border border-caramel/20 text-xs font-medium uppercase tracking-wider text-espresso dark:text-cream py-2 pl-4 pr-9 rounded-full focus:outline-none focus:ring-2 focus:ring-caramel transition-colors cursor-pointer"
+            >
+              <option value="popular" class="bg-cream-light dark:bg-espresso">Most Popular</option>
+              <option value="price-asc" class="bg-cream-light dark:bg-espresso">Price: Low to High</option>
+              <option value="price-desc" class="bg-cream-light dark:bg-espresso">Price: High to Low</option>
+              <option value="rating" class="bg-cream-light dark:bg-espresso">Highest Rated</option>
+            </select>
+            <svg class="w-3.5 h-3.5 text-caramel absolute right-3.5 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Items Grid: 1 col mobile, 2 col tablet, 3-4 col desktop -->
+    <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-all duration-300">
+      <!-- Cards rendered via JS -->
+    </div>
+
+    <!-- Empty State Illustration -->
+    <div id="noResultsState" class="hidden text-center py-20">
+      <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-caramel/10 flex items-center justify-center text-caramel">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </div>
+      <h3 class="font-serif text-2xl font-semibold mb-2">No delicacies found</h3>
+      <p class="text-sm text-espresso/60 dark:text-cream/60 max-w-sm mx-auto mb-6">
+        We couldn't find matches for this selection. Try clearing filters or exploring our artisan roasts.
+      </p>
+      <button
+        onclick="resetFilters()"
+        class="px-6 py-2.5 rounded-full bg-caramel text-espresso font-semibold text-xs tracking-wider uppercase press-spring hover:bg-caramel-dark"
+      >
+        Reset Filters
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= FLOATING MOBILE CART BAR ================= -->
+  <div id="mobileCartBar" class="fixed bottom-4 inset-x-4 z-30 md:hidden transform translate-y-32 transition-transform duration-300 ease-out">
+    <button
+      onclick="openCartDrawer()"
+      class="w-full bg-caramel hover:bg-caramel-dark text-espresso font-semibold px-6 py-3.5 rounded-2xl shadow-xl flex items-center justify-between press-spring"
+    >
+      <div class="flex items-center gap-3">
+        <span id="mobileCartCount" class="bg-espresso text-cream text-xs font-bold rounded-lg px-2.5 py-1">2 items</span>
+        <span class="text-sm font-medium">Review Order</span>
+      </div>
+      <div class="flex items-center gap-1.5 font-serif font-bold text-base">
+        <span id="mobileCartTotal">₹0</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+    </button>
+  </div>
+
+  <!-- ================= SLIDE-IN CART DRAWER (BOTTOM-SHEET ON MOBILE) ================= -->
+  <div id="cartModalBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeCartDrawer()"></div>
+
+  <div
+    id="cartDrawer"
+    class="fixed z-50 transition-transform duration-300 ease-out bg-cream-light dark:bg-espresso-card shadow-2xl flex flex-col
+           inset-x-0 bottom-0 max-h-[85vh] rounded-t-3xl md:rounded-none md:inset-y-0 md:right-0 md:left-auto md:w-[440px] md:max-h-full
+           translate-y-full md:translate-y-0 md:translate-x-full border-t md:border-t-0 md:border-l border-caramel/20"
+  >
+    <!-- Drawer Header -->
+    <div class="p-6 border-b border-caramel/20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-caramel/15 text-caramel flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-serif text-xl font-bold">Your Curated Tray</h3>
+          <p id="cartDrawerTableBadge" class="text-xs text-caramel font-medium">Table 7 • Dine-in</p>
+        </div>
+      </div>
+      <button onclick="closeCartDrawer()" class="p-2 text-espresso/50 dark:text-cream/50 hover:text-caramel transition-colors rounded-full focus:outline-none" aria-label="Close cart drawer">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Items List -->
+    <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar">
+      <!-- Items dynamically injected -->
+    </div>
+
+    <!-- Empty Tray State inside Cart -->
+    <div id="cartEmptyState" class="hidden flex-1 flex flex-col items-center justify-center p-6 text-center">
+      <div class="w-20 h-20 rounded-full bg-caramel/10 text-caramel flex items-center justify-center mb-4">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" stroke-width="1.8"></path>
+        </svg>
+      </div>
+      <h4 class="font-serif text-lg font-semibold mb-1">Your tray is empty</h4>
+      <p class="text-xs text-espresso/60 dark:text-cream/60 max-w-xs mb-6">Select from our signature brews, warm tartines, and viennoiserie to begin.</p>
+      <button onclick="closeCartDrawer()" class="px-6 py-2.5 rounded-full bg-caramel text-espresso font-semibold text-xs uppercase tracking-wider press-spring">
+        Explore Menu
+      </button>
+    </div>
+
+    <!-- Drawer Footer / Summary Calculation -->
+    <div id="cartDrawerFooter" class="p-6 border-t border-caramel/20 bg-cream/50 dark:bg-espresso-dark/40 space-y-3">
+      <div class="space-y-1.5 text-xs text-espresso/70 dark:text-cream/70 font-medium">
+        <div class="flex justify-between">
+          <span>Subtotal</span>
+          <span id="cartSubtotal" class="font-semibold text-espresso dark:text-cream">₹0</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Taxes & GST (5%)</span>
+          <span id="cartTax" class="font-semibold text-espresso dark:text-cream">₹0</span>
+        </div>
+        <div class="h-[1px] bg-caramel/20 my-1"></div>
+        <div class="flex justify-between text-base font-serif font-bold text-espresso dark:text-cream">
+          <span>Grand Total</span>
+          <span id="cartGrandTotal" class="text-caramel">₹0</span>
+        </div>
+      </div>
+
+      <button
+        onclick="openCheckoutModal()"
+        class="w-full py-3.5 rounded-2xl bg-caramel hover:bg-caramel-dark text-espresso font-semibold text-sm tracking-wide shadow-warm-glow press-spring flex items-center justify-center gap-2 transition-all"
+      >
+        <span>Proceed to Checkout</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= QR TABLE WELCOME MODAL ================= -->
+  <div id="welcomeModalBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="relative w-full max-w-md bg-cream-light dark:bg-espresso-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-caramel/30 transform transition-transform duration-300 scale-95" id="welcomeModalCard">
+      <div class="text-center space-y-3">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-caramel to-caramel-dark text-espresso mx-auto flex items-center justify-center shadow-lg shadow-caramel/30">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2 2-2 2m4 12l2 2-2 2" stroke-width="2" stroke-linecap="round"></path>
+            <circle cx="12" cy="12" r="3" stroke-width="2"></circle>
+          </svg>
+        </div>
+        <span class="text-xs uppercase tracking-[0.25em] text-caramel font-semibold block">Tabletop QR Verified</span>
+        <h3 class="font-serif text-3xl font-bold text-espresso dark:text-cream">Welcome, Table 7</h3>
+        <p class="text-xs sm:text-sm text-espresso/70 dark:text-cream/70 leading-relaxed">
+          Relax and browse our roast menu directly from your phone. Zero downloads or passwords required.
+        </p>
+      </div>
+
+      <!-- Quick recommendation chips -->
+      <div class="mt-6 p-3.5 rounded-2xl bg-espresso/5 dark:bg-espresso/30 border border-caramel/20 space-y-2">
+        <p class="text-[11px] font-semibold text-caramel uppercase tracking-wider">Chef's pairing recommendation:</p>
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=150&q=80" alt="Pistachio Cortado" class="w-11 h-11 rounded-xl object-cover" />
+          <div class="flex-1">
+            <h5 class="text-xs font-semibold text-espresso dark:text-cream">Pistachio Rose Latte</h5>
+            <p class="text-[10px] text-espresso/60 dark:text-cream/60">Crushed green pistachios & Persian rose essence</p>
+          </div>
+          <span class="text-xs font-serif font-bold text-caramel">₹340</span>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-col gap-2.5">
+        <button
+          onclick="closeTableGreetingModal()"
+          class="w-full py-3.5 rounded-2xl bg-caramel hover:bg-caramel-dark text-espresso font-semibold text-sm tracking-wide shadow-warm-glow press-spring"
+        >
+          Start Ordering
+        </button>
+        <p class="text-center text-[10px] text-espresso/50 dark:text-cream/40">Your orders are delivered direct to your tabletop.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CHECKOUT MODAL ================= -->
+  <div id="checkoutModalBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="relative w-full max-w-lg bg-cream-light dark:bg-espresso-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-caramel/30 max-h-[92vh] overflow-y-auto no-scrollbar">
+      <div class="flex items-center justify-between pb-4 border-b border-caramel/20 mb-6">
+        <div>
+          <h3 class="font-serif text-2xl font-bold">Complete Your Order</h3>
+          <p class="text-xs text-caramel">Fast table-side check-in • No login required</p>
+        </div>
+        <button onclick="closeCheckoutModal()" class="p-2 text-espresso/50 dark:text-cream/50 hover:text-caramel rounded-full" aria-label="Close checkout">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Checkout Form -->
+      <form id="checkoutForm" onsubmit="handlePlaceOrder(event)" class="space-y-4">
+        <!-- Order Type Toggle -->
+        <div>
+          <label class="block text-xs font-medium text-espresso/70 dark:text-cream/70 mb-1.5 uppercase tracking-wider">Service Experience</label>
+          <div class="grid grid-cols-2 gap-3 p-1 bg-espresso/5 dark:bg-espresso/40 rounded-2xl border border-caramel/20">
+            <label class="cursor-pointer text-center">
+              <input type="radio" name="orderType" value="dinein" checked class="sr-only peer" />
+              <div class="py-2.5 rounded-xl text-xs font-semibold peer-checked:bg-caramel peer-checked:text-espresso text-espresso/70 dark:text-cream/70 transition-all">
+                Dine-in (Table 7)
+              </div>
+            </label>
+            <label class="cursor-pointer text-center">
+              <input type="radio" name="orderType" value="takeaway" class="sr-only peer" />
+              <div class="py-2.5 rounded-xl text-xs font-semibold peer-checked:bg-caramel peer-checked:text-espresso text-espresso/70 dark:text-cream/70 transition-all">
+                Takeaway
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Floating Label Name -->
+        <div class="relative pt-2" id="nameFieldGroup">
+          <input
+            type="text"
+            id="custName"
+            required
+            placeholder=" "
+            class="peer w-full px-4 py-3.5 rounded-xl bg-transparent border border-caramel/30 focus:border-caramel focus:ring-2 focus:ring-caramel/20 focus:outline-none text-sm text-espresso dark:text-cream transition-all placeholder-transparent"
+          />
+          <label
+            for="custName"
+            class="absolute left-4 top-5 text-xs text-espresso/50 dark:text-cream/50 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs peer-focus:text-caramel pointer-events-none"
+          >
+            Your Full Name *
+          </label>
+          <span class="error-msg text-[11px] text-red-500 hidden mt-1">Please provide your name.</span>
+        </div>
+
+        <!-- Phone Number with +91 Prefix -->
+        <div class="relative pt-2" id="phoneFieldGroup">
+          <div class="flex rounded-xl border border-caramel/30 focus-within:border-caramel focus-within:ring-2 focus-within:ring-caramel/20 overflow-hidden">
+            <span class="inline-flex items-center px-3.5 bg-espresso/5 dark:bg-espresso/40 text-xs font-semibold text-caramel border-r border-caramel/20">
+              +91
+            </span>
+            <input
+              type="tel"
+              id="custPhone"
+              maxlength="10"
+              required
+              placeholder="10-digit mobile number"
+              class="w-full px-4 py-3 bg-transparent text-sm focus:outline-none text-espresso dark:text-cream placeholder-espresso/40 dark:placeholder-cream/30 font-mono"
+            />
+          </div>
+          <span class="error-msg text-[11px] text-red-500 hidden mt-1">Enter a valid 10-digit phone number.</span>
+        </div>
+
+        <!-- Table Number (Auto-filled) -->
+        <div class="relative pt-2">
+          <input
+            type="text"
+            id="custTable"
+            value="Table 7 (Corner Solarium)"
+            readonly
+            class="w-full px-4 py-3 rounded-xl bg-espresso/5 dark:bg-espresso/30 border border-caramel/20 text-xs font-semibold text-caramel focus:outline-none cursor-not-allowed"
+          />
+        </div>
+
+        <!-- Special Barista Instructions -->
+        <div class="relative pt-2">
+          <textarea
+            id="custInstructions"
+            rows="2"
+            placeholder="Special brew instructions (e.g., Oat milk, extra hot, less sweet)..."
+            class="w-full px-4 py-3 rounded-xl bg-transparent border border-caramel/30 focus:border-caramel focus:ring-2 focus:ring-caramel/20 focus:outline-none text-xs text-espresso dark:text-cream transition-all placeholder-espresso/40 dark:placeholder-cream/30 resize-none"
+          ></textarea>
+        </div>
+
+        <!-- Collapsible Order Summary preview -->
+        <details class="group border border-caramel/20 rounded-2xl p-3.5 bg-espresso/5 dark:bg-espresso/30 text-xs cursor-pointer">
+          <summary class="font-semibold flex items-center justify-between text-caramel select-none list-none">
+            <span>Review Items (<span id="checkoutSummaryCount">0</span>)</span>
+            <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </summary>
+          <div id="checkoutSummaryItems" class="pt-3 space-y-1.5 text-espresso/70 dark:text-cream/70">
+            <!-- summary rows -->
+          </div>
+        </details>
+
+        <!-- Place Order CTA Button with Loading Spinner -->
+        <button
+          type="submit"
+          id="placeOrderSubmitBtn"
+          class="w-full mt-4 py-4 rounded-2xl bg-caramel hover:bg-caramel-dark text-espresso font-semibold text-sm tracking-wide shadow-warm-glow press-spring flex items-center justify-center gap-2 transition-all"
+        >
+          <span id="placeOrderText">Confirm & Place Order • <span id="checkoutPayableTotal">₹0</span></span>
+          <svg id="placeOrderSpinner" class="w-5 h-5 animate-spin hidden text-espresso" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= ORDER SUCCESS SCREEN ================= -->
+  <div id="successModalBackdrop" class="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 flex items-center justify-center p-4 transition-opacity duration-500 opacity-0 pointer-events-none">
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas" class="absolute inset-0 pointer-events-none z-10 w-full h-full"></canvas>
+
+    <div class="relative z-20 w-full max-w-md bg-cream-light dark:bg-espresso-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-caramel/40 text-center space-y-6 transform scale-95 transition-transform duration-300">
+      <!-- Animated Self-drawing Checkmark SVG -->
+      <div class="w-24 h-24 mx-auto rounded-full bg-caramel/15 border border-caramel/30 flex items-center justify-center relative">
+        <svg class="w-14 h-14 text-caramel" viewBox="0 0 52 52">
+          <circle cx="26" cy="26" r="23" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-30" />
+          <path class="draw-path fill-none stroke-caramel stroke-[3.5] stroke-linecap-round stroke-linejoin-round" d="M14 27 l8 8 l16 -16" />
+        </svg>
+      </div>
+
+      <div class="space-y-2">
+        <span class="text-xs uppercase tracking-[0.25em] text-caramel font-semibold">Kitchen Order Confirmed</span>
+        <h3 class="font-serif text-3xl font-bold text-espresso dark:text-cream">Brewing Happiness</h3>
+        <p class="text-xs text-espresso/70 dark:text-cream/70">
+          Your order has been routed to Barista Station 1. We are preparing it with single-origin care.
+        </p>
+      </div>
+
+      <!-- Live Order Specs Card -->
+      <div class="p-4 rounded-2xl bg-espresso/5 dark:bg-espresso/40 border border-caramel/20 text-left space-y-2.5">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-espresso/60 dark:text-cream/60">Order Token</span>
+          <span id="orderSuccessId" class="font-mono font-bold text-caramel">#LAU-8429</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-espresso/60 dark:text-cream/60">Destination</span>
+          <span id="orderSuccessTable" class="font-semibold text-espresso dark:text-cream">Table 7 (Dine-in)</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-espresso/60 dark:text-cream/60">Est. Preparation Time</span>
+          <div class="flex items-center gap-1.5 font-bold text-sage">
+            <svg class="w-3.5 h-3.5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke-width="2"></circle>
+              <polyline points="12 6 12 12 16 14" stroke-width="2"></polyline>
+            </svg>
+            <span id="prepTimer">14 - 18 Mins</span>
+          </div>
+        </div>
+      </div>
+
+      <button
+        onclick="closeOrderSuccessModal()"
+        class="w-full py-3.5 rounded-2xl bg-caramel hover:bg-caramel-dark text-espresso font-semibold text-sm tracking-wide shadow-warm-glow press-spring"
+      >
+        Track Order & Browse More
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= ADMIN QR CARDS MODAL (PRINTABLE) ================= -->
+  <div id="adminModalBackdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="relative w-full max-w-4xl bg-cream-light dark:bg-espresso-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-caramel/30 max-h-[90vh] overflow-y-auto no-scrollbar">
+      <div class="flex items-center justify-between pb-4 border-b border-caramel/20 mb-6">
+        <div>
+          <h3 class="font-serif text-2xl font-bold">Tabletop QR Standee Generator</h3>
+          <p class="text-xs text-caramel">Print-ready luxury tabletop displays with zero-login links</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-caramel text-espresso font-semibold text-xs tracking-wide press-spring flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2m-12 0v4h12v-4" stroke-width="2"></path>
+            </svg>
+            <span>Print All Cards</span>
+          </button>
+          <button onclick="toggleAdminView()" class="p-2 text-espresso/50 dark:text-cream/50 hover:text-caramel rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable QR Cards Grid -->
+      <div id="printableQrGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    /* ==========================================================================
+       DATA: Curated Café Menu
+       ========================================================================== */
+    const MENU_ITEMS = [
+      {
+        id: 'c1',
+        name: 'Saffron Honey Cortado',
+        category: 'Coffee',
+        price: 310,
+        veg: true,
+        rating: 4.9,
+        bestseller: true,
+        description: 'Single-origin double shot cut with steamed silky milk and organic saffron-infused raw honey.',
+        image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'c2',
+        name: 'Pistachio Rose Latte',
+        category: 'Coffee',
+        price: 340,
+        veg: true,
+        rating: 4.8,
+        bestseller: true,
+        description: 'Espresso enveloped in stone-ground Sicilian pistachio milk and scented Persian rose petals.',
+        image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'c3',
+        name: 'Madagascar Vanilla Cold Brew',
+        category: 'Coffee',
+        price: 290,
+        veg: true,
+        rating: 4.7,
+        bestseller: false,
+        description: '18-hour cold steeped Arabica steeped with whole split bourbon vanilla beans, poured over crystal ice.',
+        image: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 't1',
+        name: 'Kashmiri Saffron Kahwa',
+        category: 'Tea',
+        price: 260,
+        veg: true,
+        rating: 4.9,
+        bestseller: false,
+        description: 'Green tea slow-simmered with crushed green cardamom, cinnamon quills, almond flakes, and saffron.',
+        image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 't2',
+        name: 'Ceremonial Uji Matcha Latte',
+        category: 'Tea',
+        price: 330,
+        veg: true,
+        rating: 4.8,
+        bestseller: true,
+        description: 'First-harvest Kyoto stoneground matcha whisked table-side with velvety warm oat emulsion.',
+        image: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'b1',
+        name: 'French Almond Croissant',
+        category: 'Bakery',
+        price: 280,
+        veg: true,
+        rating: 4.9,
+        bestseller: true,
+        description: 'Twice-baked butter croissant drenched in orange-blossom syrup, filled with rich frangipane.',
+        image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'b2',
+        name: 'Pain au Chocolat Gianduja',
+        category: 'Bakery',
+        price: 295,
+        veg: true,
+        rating: 4.7,
+        bestseller: false,
+        description: 'Flaky 72-layer laminated pastry wrapped around dual batons of Valrhona 70% dark chocolate.',
+        image: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'br1',
+        name: 'Truffle Mushroom Brioche',
+        category: 'Breakfast',
+        price: 420,
+        veg: true,
+        rating: 4.8,
+        bestseller: true,
+        description: 'Pan-seared wild forest chanterelles on toasted brioche with shaved black truffle and whipped chèvre.',
+        image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'br2',
+        name: 'Avocado Tartine with Burrata',
+        category: 'Breakfast',
+        price: 460,
+        veg: true,
+        rating: 4.7,
+        bestseller: false,
+        description: 'Hass avocado on fermented rustic sourdough, topped with whole Pugliese burrata and chili honey.',
+        image: 'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'br3',
+        name: 'Smoked Salmon Benedict',
+        category: 'Breakfast',
+        price: 520,
+        veg: false,
+        rating: 4.9,
+        bestseller: false,
+        description: 'Poached organic eggs, Atlantic smoked salmon, and tarragon brown butter hollandaise on English muffins.',
+        image: 'https://images.unsplash.com/photo-1608039829572-78524f79c4c7?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'd1',
+        name: 'Basque Burnt Cheesecake',
+        category: 'Desserts',
+        price: 360,
+        veg: true,
+        rating: 4.9,
+        bestseller: true,
+        description: 'Caramelized blackened crust with a molten, creamy center, served with raspberry balsamic reduction.',
+        image: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'd2',
+        name: 'Belgian Dark Chocolate Fondant',
+        category: 'Desserts',
+        price: 390,
+        veg: true,
+        rating: 4.8,
+        bestseller: false,
+        description: 'Warm molten 74% Belgian cacao cake served alongside house-churned Tahitian bean gelato.',
+        image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80'
+      }
+    ];
+
+    const CATEGORIES = ['All', 'Coffee', 'Tea', 'Bakery', 'Breakfast', 'Desserts'];
+
+    /* ==========================================================================
+       APPLICATION STATE
+       ========================================================================== */
+    const state = {
+      cart: {}, // { itemId: quantity }
+      activeCategory: 'All',
+      vegOnly: false,
+      searchQuery: '',
+      sortBy: 'popular',
+      tableNumber: 7,
+      isDark: false,
+      lastDeletedItem: null
+    };
+
+    /* ==========================================================================
+       INITIALIZATION
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      // Dismiss splash screen smoothly after load
+      setTimeout(() => {
+        const splash = document.getElementById('splashScreen');
+        splash.style.opacity = '0';
+        setTimeout(() => splash.remove(), 700);
+      }, 1200);
+
+      // Check query parameter for Table QR simulation (e.g., ?table=7)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('table')) {
+        state.tableNumber = parseInt(urlParams.get('table')) || 7;
+      }
+
+      // Initialize components
+      renderCategoryChips();
+      renderMenuGrid();
+      setupSearchListeners();
+      generateAdminQrStandees();
+
+      // Check dark mode preference
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        toggleTheme(true);
+      }
+    });
+
+    /* ==========================================================================
+       THEME MANAGEMENT
+       ========================================================================== */
+    function toggleTheme(forceDark = null) {
+      if (forceDark !== null) {
+        state.isDark = forceDark;
+      } else {
+        state.isDark = !state.isDark;
+      }
+
+      if (state.isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+
+    /* ==========================================================================
+       CATEGORY CHIPS WITH SLIDING PILL INDICATOR
+       ========================================================================== */
+    function renderCategoryChips() {
+      const container = document.getElementById('categoryContainer');
+      container.innerHTML = '';
+
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.setAttribute('type', 'button');
+        btn.textContent = cat;
+        btn.className = `px-5 py-2 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 relative z-10 press-spring ${
+          state.activeCategory === cat
+            ? 'bg-caramel text-espresso shadow-md shadow-caramel/25'
+            : 'text-espresso/70 dark:text-cream/70 hover:text-caramel'
+        }`;
+        btn.onclick = () => {
+          state.activeCategory = cat;
+          renderCategoryChips();
+          renderMenuGrid();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    /* ==========================================================================
+       SEARCH & FILTERS
+       ========================================================================== */
+    function setupSearchListeners() {
+      const navSearch = document.getElementById('navSearchInput');
+      navSearch.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value.toLowerCase().trim();
+        renderMenuGrid();
+      });
+    }
+
+    function applyFilters() {
+      const vegToggle = document.getElementById('vegOnlyToggle');
+      const sortSelect = document.getElementById('sortSelect');
+
+      state.vegOnly = vegToggle.checked;
+      state.sortBy = sortSelect.value;
+      renderMenuGrid();
+    }
+
+    function resetFilters() {
+      state.activeCategory = 'All';
+      state.vegOnly = false;
+      state.searchQuery = '';
+      state.sortBy = 'popular';
+      document.getElementById('vegOnlyToggle').checked = false;
+      document.getElementById('sortSelect').value = 'popular';
+      document.getElementById('navSearchInput').value = '';
+      renderCategoryChips();
+      renderMenuGrid();
+    }
+
+    /* ==========================================================================
+       MENU GRID RENDERING & 3D TILT MICRO-INTERACTIONS
+       ========================================================================== */
+    function renderMenuGrid() {
+      const grid = document.getElementById('menuGrid');
+      const countBadge = document.getElementById('resultCountBadge');
+      const noResults = document.getElementById('noResultsState');
+
+      // Filter
+      let filtered = MENU_ITEMS.filter(item => {
+        const matchesCategory = state.activeCategory === 'All' || item.category === state.activeCategory;
+        const matchesVeg = !state.vegOnly || item.veg;
+        const matchesSearch = !state.searchQuery ||
+          item.name.toLowerCase().includes(state.searchQuery) ||
+          item.description.toLowerCase().includes(state.searchQuery);
+        return matchesCategory && matchesVeg && matchesSearch;
+      });
+
+      // Sort
+      if (state.sortBy === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (state.sortBy === 'price-desc') {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (state.sortBy === 'rating') {
+        filtered.sort((a, b) => b.rating - a.rating);
+      } else {
+        // popular
+        filtered.sort((a, b) => (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0));
+      }
+
+      countBadge.textContent = `Showing ${filtered.length} curated ${filtered.length === 1 ? 'delicacy' : 'delicacies'}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        noResults.classList.remove('hidden');
+        return;
+      } else {
+        noResults.classList.add('hidden');
+      }
+
+      grid.innerHTML = '';
+
+      filtered.forEach((item, index) => {
+        const qty = state.cart[item.id] || 0;
+        const card = document.createElement('div');
+        card.className = 'group relative rounded-3xl p-3.5 glass-light dark:glass-dark border border-white/60 dark:border-caramel/20 shadow-card-soft hover:shadow-card-hover transition-all duration-500 flex flex-col justify-between transform';
+        card.style.animation = `fadeInUp 0.5s ease-out forwards ${index * 0.06}s`;
+
+        // Card HTML
+        card.innerHTML = `
+          <div>
+            <!-- Image with zoom & badges -->
+            <div class="relative h-48 rounded-2xl overflow-hidden bg-espresso/10 mb-3.5">
+              <img
+                id="img-${item.id}"
+                src="${item.image}"
+                alt="${item.name}"
+                class="w-full h-full object-cover transform group-hover:scale-108 transition-transform duration-700 ease-out"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-espresso/40 via-transparent to-transparent opacity-60"></div>
+
+              <!-- Indian Veg / Non-Veg Indicator -->
+              <div class="absolute top-3 left-3 bg-cream/90 dark:bg-espresso/90 backdrop-blur-md p-1 rounded-md border border-caramel/30 flex items-center justify-center">
+                <span class="w-3.5 h-3.5 border-2 ${item.veg ? 'border-sage' : 'border-red-600'} rounded-sm flex items-center justify-center">
+                  <span class="w-1.5 h-1.5 rounded-full ${item.veg ? 'bg-sage' : 'bg-red-600'}"></span>
+                </span>
+              </div>
+
+              <!-- Bestseller / Rating Badge -->
+              <div class="absolute top-3 right-3 flex items-center gap-1.5">
+                ${item.bestseller ? `
+                  <span class="px-2.5 py-0.5 rounded-full bg-caramel text-espresso font-bold text-[10px] uppercase tracking-wider shadow-sm">
+                    Bestseller
+                  </span>
+                ` : ''}
+                <span class="px-2 py-0.5 rounded-full bg-espresso/80 text-caramel text-[11px] font-semibold backdrop-blur-sm flex items-center gap-1">
+                  ★ ${item.rating}
+                </span>
+              </div>
+            </div>
+
+            <!-- Title & Description -->
+            <div class="px-1">
+              <div class="flex items-start justify-between gap-2 mb-1">
+                <h4 class="font-serif text-lg font-semibold text-espresso dark:text-cream group-hover:text-caramel transition-colors line-clamp-1">
+                  ${item.name}
+                </h4>
+              </div>
+              <p class="text-xs text-espresso/70 dark:text-cream/70 line-clamp-2 leading-relaxed mb-3">
+                ${item.description}
+              </p>
+            </div>
+          </div>
+
+          <!-- Bottom Action: Price & Morphing Quantity Stepper -->
+          <div class="px-1 pt-2 flex items-center justify-between border-t border-caramel/15 mt-2">
+            <span class="font-serif text-lg font-bold text-caramel">₹${item.price}</span>
+
+            <div id="btn-container-${item.id}">
+              ${qty === 0 ? `
+                <button
+                  onclick="addItemToCart('${item.id}', event)"
+                  class="px-5 py-2 rounded-full bg-caramel hover:bg-caramel-dark text-espresso font-semibold text-xs tracking-wider uppercase shadow-sm press-spring flex items-center gap-1.5 transition-colors"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <line x1="12" y1="5" x2="12" y2="19" stroke-width="2.5" stroke-linecap="round"></line>
+                    <line x1="5" y1="12" x2="19" y2="12" stroke-width="2.5" stroke-linecap="round"></line>
+                  </svg>
+                  <span>Add</span>
+                </button>
+              ` : `
+                <div class="flex items-center gap-2.5 bg-caramel/20 dark:bg-caramel/25 p-1 rounded-full border border-caramel/30">
+                  <button
+                    onclick="updateItemQty('${item.id}', -1)"
+                    class="w-7 h-7 rounded-full bg-caramel text-espresso font-bold flex items-center justify-center press-spring text-sm leading-none"
+                    aria-label="Decrease quantity"
+                  >
+                    −
+                  </button>
+                  <span class="font-sans font-bold text-xs min-w-[14px] text-center text-espresso dark:text-cream">${qty}</span>
+                  <button
+                    onclick="updateItemQty('${item.id}', 1, event)"
+                    class="w-7 h-7 rounded-full bg-caramel text-espresso font-bold flex items-center justify-center press-spring text-sm leading-none"
+                    aria-label="Increase quantity"
+                  >
+                    +
+                  </button>
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+
+        // 3D subtle tilt effect on desktop
+        card.addEventListener('mousemove', (e) => {
+          if (window.innerWidth < 1024) return;
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          card.style.transform = `perspective(800px) rotateX(${-(y / 18)}deg) rotateY(${x / 18}deg) translateY(-4px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    /* ==========================================================================
+       CART LOGIC & ANIMATIONS (FLY-TO-CART + COUNTER BOUNCE)
+       ========================================================================== */
+    function addItemToCart(itemId, evt) {
+      if (evt) {
+        animateFlyToCart(itemId, evt);
+      }
+      state.cart[itemId] = 1;
+      updateCartUI();
+      renderMenuGrid();
+      showToast('Item added to your tray');
+    }
+
+    function updateItemQty(itemId, delta, evt) {
+      if (!state.cart[itemId]) return;
+      
+      if (delta > 0 && evt) {
+        animateFlyToCart(itemId, evt);
+      }
+
+      state.cart[itemId] += delta;
+      if (state.cart[itemId] <= 0) {
+        const deletedItem = MENU_ITEMS.find(m => m.id === itemId);
+        state.lastDeletedItem = { item: deletedItem, count: 1 };
+        delete state.cart[itemId];
+        showUndoToast(deletedItem.name, itemId);
+      }
+      updateCartUI();
+      renderMenuGrid();
+    }
+
+    function animateFlyToCart(itemId, event) {
+      const imgElem = document.getElementById(`img-${itemId}`);
+      const cartBtn = document.getElementById('cartTriggerBtn');
+      if (!imgElem || !cartBtn) return;
+
+      const imgRect = imgElem.getBoundingClientRect();
+      const cartRect = cartBtn.getBoundingClientRect();
+
+      const flyClone = imgElem.cloneNode(true);
+      flyClone.className = 'flying-proxy';
+      flyClone.style.left = `${imgRect.left + imgRect.width / 2 - 25}px`;
+      flyClone.style.top = `${imgRect.top + imgRect.height / 2 - 25}px`;
+      flyClone.style.width = '50px';
+      flyClone.style.height = '50px';
+
+      document.body.appendChild(flyClone);
+
+      requestAnimationFrame(() => {
+        flyClone.style.left = `${cartRect.left + cartRect.width / 2 - 12}px`;
+        flyClone.style.top = `${cartRect.top + cartRect.height / 2 - 12}px`;
+        flyClone.style.width = '24px';
+        flyClone.style.height = '24px';
+        flyClone.style.opacity = '0.4';
+      });
+
+      setTimeout(() => {
+        flyClone.remove();
+        // Bounce Cart Badge
+        const badge = document.getElementById('cartBadge');
+        badge.classList.remove('scale-100');
+        badge.classList.add('scale-125');
+        setTimeout(() => badge.classList.remove('scale-125'), 200);
+      }, 750);
+    }
+
+    function updateCartUI() {
+      const totalCount = Object.values(state.cart).reduce((a, b) => a + b, 0);
+      const subtotal = Object.entries(state.cart).reduce((acc, [id, qty]) => {
+        const item = MENU_ITEMS.find(i => i.id === id);
+        return acc + (item ? item.price * qty : 0);
+      }, 0);
+      const tax = Math.round(subtotal * 0.05); // 5% GST
+      const grandTotal = subtotal + tax;
+
+      // Badges
+      const badge = document.getElementById('cartBadge');
+      badge.textContent = totalCount;
+      if (totalCount > 0) {
+        badge.classList.remove('scale-0');
+        badge.classList.add('scale-100');
+      } else {
+        badge.classList.add('scale-0');
+        badge.classList.remove('scale-100');
+      }
+
+      // Mobile Bottom Bar
+      const mobileBar = document.getElementById('mobileCartBar');
+      const mobileCount = document.getElementById('mobileCartCount');
+      const mobileTotal = document.getElementById('mobileCartTotal');
+      if (totalCount > 0) {
+        mobileBar.classList.remove('translate-y-32');
+        mobileCount.textContent = `${totalCount} ${totalCount === 1 ? 'item' : 'items'}`;
+        mobileTotal.textContent = `₹${grandTotal}`;
+      } else {
+        mobileBar.classList.add('translate-y-32');
+      }
+
+      // Drawer Content
+      renderCartDrawerItems(subtotal, tax, grandTotal);
+    }
+
+    function renderCartDrawerItems(subtotal, tax, grandTotal) {
+      const list = document.getElementById('cartItemsList');
+      const empty = document.getElementById('cartEmptyState');
+      const footer = document.getElementById('cartDrawerFooter');
+
+      document.getElementById('cartSubtotal').textContent = `₹${subtotal}`;
+      document.getElementById('cartTax').textContent = `₹${tax}`;
+      document.getElementById('cartGrandTotal').textContent = `₹${grandTotal}`;
+      document.getElementById('checkoutPayableTotal').textContent = `₹${grandTotal}`;
+
+      const itemIds = Object.keys(state.cart);
+      if (itemIds.length === 0) {
+        list.innerHTML = '';
+        empty.classList.remove('hidden');
+        footer.classList.add('opacity-40', 'pointer-events-none');
+        return;
+      }
+
+      empty.classList.add('hidden');
+      footer.classList.remove('opacity-40', 'pointer-events-none');
+      list.innerHTML = '';
+
+      itemIds.forEach(id => {
+        const item = MENU_ITEMS.find(m => m.id === id);
+        const qty = state.cart[id];
+        if (!item) return;
+
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-3.5 p-3 rounded-2xl bg-espresso/5 dark:bg-espresso/40 border border-caramel/15';
+        row.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="w-14 h-14 rounded-xl object-cover" />
+          <div class="flex-1 min-w-0">
+            <h5 class="font-serif text-sm font-semibold truncate text-espresso dark:text-cream">${item.name}</h5>
+            <span class="text-xs text-caramel font-bold">₹${item.price}</span>
+          </div>
+          <!-- Stepper -->
+          <div class="flex items-center gap-2 bg-caramel/20 p-1 rounded-full border border-caramel/30">
+            <button onclick="updateItemQty('${item.id}', -1)" class="w-6 h-6 rounded-full bg-caramel text-espresso font-bold flex items-center justify-center press-spring text-xs">−</button>
+            <span class="text-xs font-bold w-4 text-center text-espresso dark:text-cream">${qty}</span>
+            <button onclick="updateItemQty('${item.id}', 1)" class="w-6 h-6 rounded-full bg-caramel text-espresso font-bold flex items-center justify-center press-spring text-xs">+</button>
+          </div>
+          <button onclick="removeItemCompletely('${item.id}')" class="text-espresso/40 dark:text-cream/40 hover:text-red-500 p-1" title="Remove">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="1.8"></path>
+            </svg>
+          </button>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    function removeItemCompletely(itemId) {
+      const item = MENU_ITEMS.find(m => m.id === itemId);
+      state.lastDeletedItem = { item, count: state.cart[itemId] };
+      delete state.cart[itemId];
+      updateCartUI();
+      renderMenuGrid();
+      showUndoToast(item.name, itemId);
+    }
+
+    /* ==========================================================================
+       CART DRAWER TOGGLE
+       ========================================================================== */
+    function openCartDrawer() {
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('cartModalBackdrop');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100');
+
+      drawer.classList.remove('translate-y-full', 'md:translate-x-full');
+      drawer.classList.add('translate-y-0', 'md:translate-x-0');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCartDrawer() {
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('cartModalBackdrop');
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+
+      drawer.classList.remove('translate-y-0', 'md:translate-x-0');
+      drawer.classList.add('translate-y-full', 'md:translate-x-full');
+      document.body.style.overflow = '';
+    }
+
+    /* ==========================================================================
+       TOASTS & UNDO BANNER
+       ========================================================================== */
+    function showToast(msg) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'glass-light dark:glass-dark border border-caramel/30 px-4 py-2.5 rounded-2xl shadow-lg text-xs font-semibold flex items-center gap-2 transform translate-x-12 opacity-0 transition-all duration-300';
+      toast.innerHTML = `
+        <span class="w-2 h-2 rounded-full bg-caramel"></span>
+        <span>${msg}</span>
+      `;
+      container.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-x-12', 'opacity-0');
+      });
+      setTimeout(() => {
+        toast.classList.add('translate-x-12', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+
+    function showUndoToast(itemName, itemId) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'glass-light dark:glass-dark border border-caramel/40 px-4 py-3 rounded-2xl shadow-xl text-xs flex items-center justify-between gap-4 pointer-events-auto transform translate-x-12 opacity-0 transition-all duration-300';
+      toast.innerHTML = `
+        <span class="text-espresso dark:text-cream truncate max-w-[160px]">Removed ${itemName}</span>
+        <button onclick="undoItemRemoval('${itemId}', this)" class="text-caramel hover:underline font-bold text-xs uppercase tracking-wider">Undo</button>
+      `;
+      container.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-x-12', 'opacity-0');
+      });
+      setTimeout(() => {
+        if (toast.parentElement) {
+          toast.classList.add('translate-x-12', 'opacity-0');
+          setTimeout(() => toast.remove(), 300);
+        }
+      }, 4500);
+    }
+
+    function undoItemRemoval(itemId, btn) {
+      if (state.lastDeletedItem && state.lastDeletedItem.item.id === itemId) {
+        state.cart[itemId] = state.lastDeletedItem.count || 1;
+        updateCartUI();
+        renderMenuGrid();
+        const toast = btn.parentElement;
+        toast.remove();
+        showToast('Item restored to tray');
+      }
+    }
+
+    /* ==========================================================================
+       TABLE QR GREETING MODAL (ZERO-LOGIN EXPERIENCE)
+       ========================================================================== */
+    function showTableGreetingModal(open = true) {
+      const modal = document.getElementById('welcomeModalBackdrop');
+      const card = document.getElementById('welcomeModalCard');
+      if (open) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+      } else {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        card.classList.add('scale-95');
+      }
+    }
+
+    function closeTableGreetingModal() {
+      showTableGreetingModal(false);
+    }
+
+    /* ==========================================================================
+       CHECKOUT MODAL & ORDER PLACEMENT
+       ========================================================================== */
+    function openCheckoutModal() {
+      closeCartDrawer();
+      const modal = document.getElementById('checkoutModalBackdrop');
+      const summaryItems = document.getElementById('checkoutSummaryItems');
+      const summaryCount = document.getElementById('checkoutSummaryCount');
+
+      const count = Object.values(state.cart).reduce((a, b) => a + b, 0);
+      summaryCount.textContent = count;
+      summaryItems.innerHTML = '';
+
+      Object.entries(state.cart).forEach(([id, qty]) => {
+        const item = MENU_ITEMS.find(m => m.id === id);
+        if (!item) return;
+        const row = document.createElement('div');
+        row.className = 'flex justify-between items-center';
+        row.innerHTML = `
+          <span>${qty}x ${item.name}</span>
+          <span class="font-medium">₹${item.price * qty}</span>
+        `;
+        summaryItems.appendChild(row);
+      });
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+    }
+
+    function closeCheckoutModal() {
+      const modal = document.getElementById('checkoutModalBackdrop');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function handlePlaceOrder(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('custName');
+      const phoneInput = document.getElementById('custPhone');
+      const nameGroup = document.getElementById('nameFieldGroup');
+      const phoneGroup = document.getElementById('phoneFieldGroup');
+
+      let valid = true;
+
+      // Validate name
+      if (!nameInput.value.trim()) {
+        nameGroup.querySelector('.error-msg').classList.remove('hidden');
+        shakeElement(nameGroup);
+        valid = false;
+      } else {
+        nameGroup.querySelector('.error-msg').classList.add('hidden');
+      }
+
+      // Validate phone (10 digits)
+      const phonePattern = /^[6-9]\d{9}$/;
+      if (!phonePattern.test(phoneInput.value.trim())) {
+        phoneGroup.querySelector('.error-msg').classList.remove('hidden');
+        shakeElement(phoneGroup);
+        valid = false;
+      } else {
+        phoneGroup.querySelector('.error-msg').classList.add('hidden');
+      }
+
+      if (!valid) return;
+
+      // Show spinner on CTA
+      const submitBtn = document.getElementById('placeOrderSubmitBtn');
+      const spinner = document.getElementById('placeOrderSpinner');
+      const btnText = document.getElementById('placeOrderText');
+
+      submitBtn.disabled = true;
+      spinner.classList.remove('hidden');
+      btnText.textContent = 'Transmitting to Barista...';
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        spinner.classList.add('hidden');
+        btnText.textContent = 'Confirm & Place Order';
+
+        // Clear cart
+        state.cart = {};
+        updateCartUI();
+        renderMenuGrid();
+
+        closeCheckoutModal();
+        triggerOrderSuccess();
+      }, 1400);
+    }
+
+    function shakeElement(elem) {
+      elem.classList.add('animate-shake');
+      elem.style.transform = 'translateX(6px)';
+      setTimeout(() => elem.style.transform = 'translateX(-6px)', 80);
+      setTimeout(() => elem.style.transform = 'translateX(4px)', 160);
+      setTimeout(() => elem.style.transform = 'translateX(0)', 240);
+    }
+
+    /* ==========================================================================
+       ORDER SUCCESS SCREEN & CONFETTI BURST
+       ========================================================================== */
+    function triggerOrderSuccess() {
+      const modal = document.getElementById('successModalBackdrop');
+      const token = '#LAU-' + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('orderSuccessId').textContent = token;
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+
+      // Launch Confetti
+      launchCanvasConfetti();
+    }
+
+    function closeOrderSuccessModal() {
+      const modal = document.getElementById('successModalBackdrop');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function launchCanvasConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#C8A15A', '#2B1B14', '#8A9A7B', '#F7F1E8', '#DFC48D'];
+
+      for (let i = 0; i < 90; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          radius: Math.random() * 5 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 14,
+          vy: (Math.random() - 0.7) * 16,
+          gravity: 0.35,
+          opacity: 1
+        });
+      }
+
+      function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let activeParticles = 0;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.opacity -= 0.012;
+
+          if (p.opacity > 0) {
+            activeParticles++;
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.opacity);
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          }
+        });
+
+        if (activeParticles > 0) {
+          requestAnimationFrame(update);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    /* ==========================================================================
+       ADMIN PRINTABLE TABLE QR CARDS
+       ========================================================================== */
+    function toggleAdminView() {
+      const modal = document.getElementById('adminModalBackdrop');
+      if (modal.classList.contains('opacity-0')) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+      } else {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    function generateAdminQrStandees() {
+      const grid = document.getElementById('printableQrGrid');
+      grid.innerHTML = '';
+
+      for (let i = 1; i <= 6; i++) {
+        const card = document.createElement('div');
+        card.className = 'bg-cream text-espresso p-6 rounded-3xl border-2 border-caramel/40 shadow-xl flex flex-col items-center text-center space-y-4';
+        card.innerHTML = `
+          <div class="border-b border-caramel/30 pb-3 w-full">
+            <h4 class="font-serif text-xl font-bold tracking-wider uppercase text-espresso">L'AURA</h4>
+            <p class="text-[9px] uppercase tracking-[0.25em] text-caramel font-semibold">Artisan Roastery</p>
+          </div>
+
+          <!-- Stylized QR Code Graphic -->
+          <div class="p-3 bg-white rounded-2xl shadow-inner border border-caramel/20">
+            <svg class="w-32 h-32 text-espresso" viewBox="0 0 100 100" fill="currentColor">
+              <!-- Corner Finder 1 -->
+              <rect x="5" y="5" width="28" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="6"/>
+              <rect x="13" y="13" width="12" height="12" fill="currentColor"/>
+              <!-- Corner Finder 2 -->
+              <rect x="67" y="5" width="28" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="6"/>
+              <rect x="75" y="13" width="12" height="12" fill="currentColor"/>
+              <!-- Corner Finder 3 -->
+              <rect x="5" y="67" width="28" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="6"/>
+              <rect x="13" y="75" width="12" height="12" fill="currentColor"/>
+              <!-- Abstract Data matrix dots -->
+              <rect x="42" y="10" width="6" height="6"/>
+              <rect x="52" y="18" width="6" height="6"/>
+              <rect x="42" y="26" width="6" height="6"/>
+              <rect x="10" y="44" width="6" height="6"/>
+              <rect x="22" y="44" width="6" height="6"/>
+              <rect x="44" y="44" width="12" height="12"/>
+              <rect x="64" y="44" width="6" height="6"/>
+              <rect x="76" y="44" width="6" height="6"/>
+              <rect x="88" y="44" width="6" height="6"/>
+              <rect x="44" y="64" width="6" height="6"/>
+              <rect x="56" y="74" width="6" height="6"/>
+              <rect x="68" y="64" width="10" height="10"/>
+              <rect x="84" y="78" width="8" height="8"/>
+              <!-- Center Micro Coffee Bean -->
+              <circle cx="50" cy="50" r="4" fill="#C8A15A"/>
+            </svg>
+          </div>
+
+          <div class="space-y-1">
+            <span class="text-xs uppercase tracking-widest text-caramel font-semibold">Tabletop Standee</span>
+            <h5 class="font-serif text-2xl font-bold">Table ${i}</h5>
+            <p class="text-[10px] text-espresso/60 max-w-[180px]">Scan camera to view roast collection & place orders instantly.</p>
+          </div>
+
+          <div class="w-full pt-2 border-t border-caramel/20 flex items-center justify-center gap-1.5 text-[9px] uppercase tracking-wider text-caramel font-bold">
+            <span>Complimentary High-Speed Wi-Fi</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+  </script>
+</body>
+</html>
